@@ -1,0 +1,11 @@
+# @package _global_
+
+# default evaluate setup
+# other evaluate configs can inherit from this one
+
+# disable callbacks and loggers during debugging
+callbacks: null
+
+
+
+

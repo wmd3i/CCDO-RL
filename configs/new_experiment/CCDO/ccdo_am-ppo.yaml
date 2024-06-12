@@ -1,0 +1,101 @@
+# @package _global_
+
+defaults:
+  
+  - override /env: acsp.yaml
+  - override /callbacks: default.yaml
+  - override /trainer: default.yaml
+  - override /logger: wandb.yaml  # csv.yaml  #
+  
+# ccdo params
+iters: 1
+epsilon: 0.01
+prog_epoch1: 1
+prog_epoch2: 20
+prog_epoch3: 15
+adver_epoch1: 1
+adver_epoch2: 15
+adver_epoch3: 10
+
+eval_baseline: False
+baseline_method: "cw"
+
+env:
+  num_loc: 50
+
+# dataset_phase: "train"  
+logger:
+  wandb:
+    project: "ccdo"
+    tags: ["adv-am", "${env.name}"]
+    group: ${env.name}${env.num_loc}
+    name: am-${env.name}${env.num_loc}
+    offline: True
+
+
+model_ccdo:
+  batch_size:  512 #10 #
+  val_batch_size: 100  #10 #
+  test_batch_size: 100 #10   #
+  train_data_size: 10_000  #100  #
+  val_data_size: 10_000  #
+  test_data_size: 100  #100 #
+  data_dir: "data${paths.stoch_idx}/"
+  # policy_kwargs:
+  #   test_decode_type: "multistart_sampling"
+
+
+model:
+  optimizer_kwargs:
+    lr: 1e-4
+    weight_decay: 0
+  lr_scheduler:
+    "MultiStepLR"
+  lr_scheduler_kwargs:
+    milestones: [15, 18] #
+    gamma: 0.1
+  batch_size: ${model_ccdo.batch_size}
+  val_batch_size: ${model_ccdo.val_batch_size}
+  test_batch_size: ${model_ccdo.test_batch_size}
+  train_data_size: ${model_ccdo.train_data_size}
+  val_data_size: ${model_ccdo.val_data_size}
+  test_data_size: ${model_ccdo.test_data_size}
+  data_dir: "data${paths.stoch_idx}/"
+  baseline_kwargs:
+    with_adv: true
+  # policy_kwargs:
+  #   test_decode_type: "multistart_sampling"
+
+
+load_prog_from_path:  /home/panpan/acces_games/logs/train/runs/acsp50/am-acsp50/2024-05-22_19-57-54/rl4co/c1b28edi/checkpoints/epoch=0-step=20.ckpt
+load_adv_from_path: /home/panpan/acces_games/logs/train/runs/acsp50/ppo-adv-acsp50/2024-05-22_19-58-41/rl4co/v2jo88ct/checkpoints/epoch=0-step=40.ckpt
+train_with_pretrain: null
+
+model_adversary:
+  opponent: null
+  opponent_type: "no"
+  clip_range: 0.2
+  ppo_epochs: 2
+  mini_batch_size: 512
+  vf_lambda: 0.5
+  entropy_lambda: 0.01
+  normalize_adv: false
+  max_grad_norm: 0.5
+  optimizer_kwargs:
+    lr: 5e-5
+    weight_decay: 0
+  lr_scheduler:
+    "MultiStepLR"
+  lr_scheduler_kwargs:
+    milestones: [5, 8, 13]
+    gamma: 0.1
+  data_dir: "data${paths.stoch_idx}/"
+  # policy_kwargs:
+  #   test_decode_type: "multistart_sampling"
+
+# trainer:
+#   # max_epochs:  50 #
+
+seed: 3
+
+evaluate_method: "greedy"   #["greedy", "sampling", "greedy_multistart", "augment_dihedral_8", "augment", "greedy_multistart_augment_dihedral_8", "greedy_multistart_augment"]

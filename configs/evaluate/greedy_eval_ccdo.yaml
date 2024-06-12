@@ -1,0 +1,62 @@
+# @package _global_
+
+# default evaluate setup
+# other evaluate configs can inherit from this one
+
+# overwrite task name so debugging logs are stored in separate folder
+task_name: "evaluate"
+
+# disable callbacks and loggers during debugging
+callbacks: null
+
+train: False
+
+test: False 
+
+mode: "evaluate"
+evaluate: true
+
+
+
+
+
+# 要加载的psro prog的模型的位置
+# svrp20-1:
+# /home/panpan/rl4co/logs/train_psro/runs/svrp20/am-svrp20/2024-05-07_21-21-53
+# svrp20-2:
+# /home/panpan/rl4co/logs/train_psro/runs/svrp20/am-svrp20/2024-05-07_21-36-12
+# csp20-1
+# /home/panpan/rl4co/logs/train_psro/runs/csp20/am-csp20/2024-05-06_10-43-24
+# csp20-2
+# /home/panpan/rl4co/logs/train_psro/runs/csp20/am-csp20/2024-05-07_14-56-15
+# pg20-1_old
+# /home/panpan/rl4co/logs/train_psro/runs/pg20/am-pg20/2024-05-09_09-25-21
+# pg20-2_old
+# /home/panpan/rl4co/logs/train_psro/runs/pg20/am-pg20/2024-05-09_17-39-26
+# pg20-1
+# /home/panpan/rl4co/logs/train_psro/runs/pg20/am-pg20/2024-05-11_22-31-01
+# svrp50-1
+# /home/panpan/rl4co/logs/train_psro/runs/svrp50/am-svrp50/2024-05-09_09-42-49
+# svrp50-2
+# /home/panpan/rl4co/logs/train_psro/runs/svrp50/am-svrp50/2024-05-10_17-28-03
+# new
+#"/home/panpan/rl4co/logs/train_psro/runs/svrp20/am-svrp20/2024-05-16_16-38-09"
+# eval_no_saved_data: true
+evaluate_prog_dir: /home/panpan/acces_games/logs/train_ccdo/runs/acsp50/am-acsp50/2024-05-22_20-10-26
+ckpt_psro_path: ${evaluate_prog_dir}
+prog_npz_pth: ${evaluate_prog_dir}/ccdo/info.npz
+#/home/panpan/rl4co/logs/train_psro/runs/pg50/am-pg50/2024-05-20_21-15-34/ccdo/info.npz
+#/home/panpan/rl4co/logs/train_psro/runs/pg20/am-pg20/2024-05-20_14-19-12/ccdo/info.npz
+#/home/panpan/rl4co/logs/train_psro/runs/csp20/am-csp20/2024-05-20_03-59-47/ccdo/info.npz
+#"/home/panpan/rl4co/logs/train_psro/runs/svrp20/am-svrp20/2024-05-19_22-38-12/ccdo/info.npz"
+eval_withadv: false
+another_adv: false
+evaluate_adv_dir: ${evaluate_prog_dir}
+adv_npz_pth: ${evaluate_prog_dir}/ccdo/info.npz
+
+# 以下变量还未用到
+# another_psro_prog_path: "/home/panpan/rl4co/logs/train_rarl/runs/svrp20/am-svrp20/2024-03-06_22-38-52/rl4co-adv/abok0x6b/checkpoints/epoch=99-step=305000.ckpt"
+# ckpt_prog_path: "/home/panpan/rl4co/logs/train/runs/svrp20/am-svrp20/2024-03-07_08-54-54/rl4co/u3sonrtq/checkpoints/epoch=99-step=125000.ckpt"
+# evaluate_loc: "${evaluate_savedir}"
+# evaluate_method: "greedy"   # ["greedy", "sampling", "greedy_multistart", "augment_dihedral_8", "augment", "greedy_multistart_augment_dihedral_8", "greedy_multistart_augment"]
+
