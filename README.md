@@ -6,7 +6,7 @@ This repository is the official implementation of "[Can Reinforcement Learning S
 **Accepted by ICLR 2025**
 
 ## Installation
-First, install libraries via requirements.txt:
+First, install libraries via `requirements.txt`:
 ```bash
 pip install -r requirements.txt
 pip install -e . 
@@ -32,7 +32,7 @@ python run.py env=pg env.num_loc=20
 
 **You need to train a protagonist model first.** Then add its model checkpoint pth to `prog_pth`  in `routing/am-ppo_adv.yaml`. 
 > Tips:  
->> checkpoint pth is in `{root_dir}/logs/train/runs/{env.name}{env.num_loc}/am-{env.num}{env.num_loc}/{time}/rl4co/xxxxxxx/checkpoints/xxx.ckpt`  
+> checkpoint pth is in `{root_dir}/logs/train/runs/{env.name}{env.num_loc}/am-{env.num}{env.num_loc}/{time}/rl4co/xxxxxxx/checkpoints/xxx.ckpt`  
 Make sure its env and num_loc are the same as those of the protagonist.
 
 run with command:
@@ -139,3 +139,5 @@ Then run the command:
 ```bash
 python run_ccdoadv_eval.py
 ```
+
+## Thanks
