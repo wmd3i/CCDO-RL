@@ -1,0 +1,25 @@
+# @package _global_
+
+# default evaluate setup
+# other evaluate configs can inherit from this one
+
+# overwrite task name so debugging logs are stored in separate folder
+task_name: "evaluate"
+
+# disable callbacks and loggers during debugging
+callbacks: null
+
+train: False
+
+test: False 
+
+mode: "evaluate_rl"
+evaluate: true
+
+evaluate_psro_dir: /home/yuheng/rl4co/logs/train_psro/runs/svrp20/am-svrp20/2024-09-19_22-38-12
+evaluate_savedir: "/home/yuheng/acces_games/logs/train/runs/acsp50/am-acsp50/2024-09-22_19-57-54"
+ckpt_path: /home/yuheng/acces_games/logs/train/runs/acsp50/am-acsp50/2024-09-22_19-57-54/rl4co/c1b28edi/checkpoints/epoch=0-step=20.ckpt
+
+evaluate_loc: "${evaluate_savedir}"
+evaluate_method: "greedy"   # ["greedy", "sampling", "greedy_multistart", "augment_dihedral_8", "augment", "greedy_multistart_augment"]
+

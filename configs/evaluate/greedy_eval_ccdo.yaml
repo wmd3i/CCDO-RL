@@ -1,0 +1,28 @@
+# @package _global_
+
+# default evaluate setup
+# other evaluate configs can inherit from this one
+
+# overwrite task name so debugging logs are stored in separate folder
+task_name: "evaluate"
+
+# disable callbacks and loggers during debugging
+callbacks: null
+
+train: False
+
+test: False 
+
+mode: "evaluate"
+evaluate: true
+
+evaluate_prog_dir: /home/yuheng/acces_games/logs/train_ccdo/runs/acsp50/am-acsp50/2024-09-22_20-10-26
+ckpt_psro_path: ${evaluate_prog_dir}
+prog_npz_pth: ${evaluate_prog_dir}/ccdo/info.npz
+
+eval_withadv: false
+another_adv: false
+evaluate_adv_dir: ${evaluate_prog_dir}
+adv_npz_pth: ${evaluate_prog_dir}/ccdo/info.npz
+
+
