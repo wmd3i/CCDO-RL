@@ -1,7 +1,7 @@
 # Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?
 This repository is the official implementation of "[Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?](https://arxiv.org/abs/2502.01252)", including the **CCDO-RL** algorithm and heuristic baselines.
 
-**Author: Yuheng Li, Panpan Wang, Haipeng Chen**
+**Authors: Yuheng Li, Panpan Wang, Haipeng Chen**
 
 **Accepted by ICLR 2025**
 
@@ -32,22 +32,19 @@ python run.py env=pg env.num_loc=20
 
 **You need to train a protagonist model first.** Then add its model checkpoint pth to `prog_pth`  in `routing/am-ppo_adv.yaml`. 
 > Tips:  
->> checkpoint pth is in `{root_dir}/logs/train/runs/{env.name}{env.num}{env.num_loc}/am-{env.num}{env.num_loc}/{time}/rl4co/xxxxxxx/checkpoints/xxx.ckpt`  
->>> e.g.: `{root_dir}/acces_games/logs/train/runs/acsp50/am-acsp50/2024-05-22_19-57-54/rl4co/c1b28edi/checkpoints/epoch=0-step=20.ckpt`
-Make sure its env and num_loc is same as protagonist.
+>> checkpoint pth is in `{root_dir}/logs/train/runs/{env.name}{env.num_loc}/am-{env.num}{env.num_loc}/{time}/rl4co/xxxxxxx/checkpoints/xxx.ckpt`  
+Make sure its env and num_loc are the same as those of the protagonist.
 
 run with command:
 ```bash
 python run_adv.py
 ```
-> Tips:  
-> adversary model checkpoint pth is like:
->  `{root_dir}/acces_games/logs/train/runs/acsp50/ppo-adv-acsp50/2024-05-22_19-58-41/rl4co/v2jo88ct/checkpoints/epoch=0-step=40.ckpt`  
+
 #### 3. Train CCDO-RL model:
 
 **After train protagonist and adversarial, you can run CCDO-RL now.**  
 Set protagonist  and adversarial checkpoint pth in `load_prog_from_path` and `load_adv_from_path` in`new_experiment/CCDO/ccdo_am-ppo.yaml`
-Make sure their env and num_loc is same as protagonist & adversary.
+Make sure their env and num_loc are the same as those of protagonist & adversary.
 ```bash
 python run_ccdo.py
 ```
@@ -55,12 +52,14 @@ Now you get a ccdo-protagonist and a ccdo-adversary.
 
 ### Evaluation
 #### Datasets
-if evaluate on sampled ones from trained dataset, set cooresponding params in `configs/env/{env_name}.yaml`
+If evaluating on sampled ones from the dataset, set the corresponding params in `configs/env/{env_name}.yaml`
+
+If on the eval dataset, set:
 ```bash
 eval_dataset: "val"    
 dataset_state: "sample"
 ```
-If on test dataset, set:
+If on the test dataset, set:
 ```bash
 eval_dataset: "test"    
 dataset_state: "no_sample"
@@ -73,17 +72,17 @@ dataset_state: "no_sample"
 
 Firstly, set params `ckpt_path` to trained protagonist checkpoint path(ckpt) and its  dir to `evaluate_savedir` in `greedy_eval.yaml`. e.g.
 ```bash
-evaluate_savedir: {root_dir}/acces_games/logs/train/runs/acsp50/am-acsp50/2024-05-22_19-57-54  
-ckpt_path: {root_dir}/acces_games/logs/train/runs/acsp50/am-acsp50/2024-05-22_19-57-54/rl4co/c1b28edi/checkpoints/epoch=0-step=20.ckpt
+evaluate_savedir: {root_dir}/logs/train/runs/{env.name}{env.num_loc}/am-{env.num}{env.num_loc}/{time} 
+ckpt_path: {root_dir}/logs/train/runs/{env.name}{env.num_loc}/am-{env.num}{env.num_loc}/{time}/rl4co/xxxxxxx/checkpoints/xxx.ckpt
 
 ```
-Then run the commend:
+Then run the command:
 ```bash
 python run.py evaluate=greedy_eval
 ```
 You can find detailed results in the protagonist logdir.
 > Tips:  
-> If you eval on sampled train dataset,  you must run an CCDO algorithm and eval any protagonist(is or not ccdo) on it firstly. Except for `evaluate_savedir` and `ckpt_path`, also set `evaluate_psro_dir` to ccdo alogr directory.
+> If you evaluate on a sampled eval dataset,  you must run a CCDO algorithm and evaluate any protagonist(is or is not CCDO-RL) on it first. Except for `evaluate_savedir` and `ckpt_path`, also set `evaluate_psro_dir` to the ccdo alogrithm directory.
 >
 
 ##### 2. Eval ccdo-protagonist with ccdo-adversary:
@@ -95,10 +94,10 @@ Run:
 python run_ccdo.py evaluate=greedy_eval_ccdo
 ```
 > Tips:  
-> Must do this firstly if evaluate any with ccdo-adversary.
+> Must do this first if evaluating any with ccdo-adversary.
 
 ##### 3. Eval ccdo-protagonsit without adversary:
-Following last one, set  'eval_withadv` to false.
+Following the last one, set  'eval_withadv` to false.
 Still run:
 ```bash
 python run_ccdo.py evaluate=greedy_eval_ccdo
@@ -107,9 +106,9 @@ python run_ccdo.py evaluate=greedy_eval_ccdo
 
 Modify `evaluate` in main_ccdo_frame.yaml as `eval_other_with_ccdo_adver.yaml` firstly.
 In `eval_other_with_ccdo_adver.yaml`, set `evaluate_adv_dir` to the ccdo logdir path, and `eval_rl_prog` to `true`.
-Set 'rl_prog_dir' and 'rl_prog_pth' to trained protagonist dir and ckpt
+Set 'rl_prog_dir' and 'rl_prog_pth' to trained protagonist dir and ckpt.
 
-Then run the commend:
+Then run the command:
 ```bash
 python run_ccdoadv_eval.py
 ```
@@ -120,23 +119,23 @@ python run_ccdoadv_eval.py
 
 
 
-#### Eval heuristic algorithm:
-##### 1. Eval heuristic-alg without adversary:
+#### Eval heuristic algorithms:
+##### 1. Eval heuristic algorithm without adversary:
 
 
 Firstly, set params `ckpt_path` to trained protagonist checkpoint path(ckpt) and its  dir to `evaluate_savedir` in `baseline_eval.yaml`. e.g.
 Select the baseline method in `baseline`.
-Then run the commend:
+Then run the command:
 ```bash
 python run.py evaluate=baseline_eval
 ```
-##### 2. Eval heuristic-alg with ccdo-adversary:
+##### 2. Eval heuristic-algorithm with ccdo-adversary:
 
 Modify `evaluate` in main_ccdo_frame.yaml as `eval_other_with_ccdo_adver.yaml` firstly.
 In `eval_other_with_ccdo_adver.yaml`, set `evaluate_adv_dir` to the ccdo logdir path, and `eval_baseline_prog` to `true`.
 Set 'rl_prog_dir' and 'rl_prog_pth' to trained protagonist dir and ckpt
 Select the baseline method in `baseline_heur`.
-Then run the commend:
+Then run the command:
 ```bash
 python run_ccdoadv_eval.py
 ```
