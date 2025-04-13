@@ -1,7 +1,7 @@
 # Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?
 This repository is the official implementation of ""Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?"
-## Requirements
-To install requirements and lib
+## Installation
+First, install libraries via requirements.txt:
 ```bash
 pip install -r requirements.txt
 pip install -e . 
