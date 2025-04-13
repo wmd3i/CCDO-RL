@@ -1,5 +1,10 @@
 # Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?
-This repository is the official implementation of "[Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?](https://arxiv.org/abs/2502.01252)"
+This repository is the official implementation of "[Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?](https://arxiv.org/abs/2502.01252)", including the **CCDO-RL** algorithm and heuristic baselines.
+
+**Author: Yuheng Li, Panpan Wang, Haipeng Chen**
+
+**Accepted by ICLR 2025**
+
 ## Installation
 First, install libraries via requirements.txt:
 ```bash
