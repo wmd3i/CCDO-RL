@@ -140,4 +140,17 @@ Then run the command:
 python run_ccdoadv_eval.py
 ```
 
-## Thanks
+## Citation
+If you find RL4CO valuable for your research or applied projects:
+```bash
+@article{li2025ccdorl,
+      title={Can Reinforcement Learning Solve Asymmetric Combinatorial-Continuous Zero-Sum Games?}, 
+      author={Yuheng Li and Panpan Wang and Haipeng Chen},
+      year={2025},
+      journal={arXiv preprint 2502.01252}
+}
+```
+
+## Code
+Thanks for the open-source papers listed below which CCDO-RL is built on.
+[https://github.com/ai4co/rl4co](https://github.com/ai4co/rl4co)
